@@ -179,7 +179,7 @@ outputSamples(FIL *fil, struct Wav_Header *header)
 
     HAL_DAC_Stop_DMA(&hdac1, DAC_CHANNEL_1);
     flg_dma_done = 0;
-    HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)dmaBuffer[dmaBank], numSamples * 2, DAC_ALIGN_12B_R);
+    HAL_DAC_Start_DMA(&hdac1, DAC_CHANNEL_1, (uint32_t*)dmaBuffer[dmaBank], numSamples, DAC_ALIGN_12B_R);
 
     dmaBank = !dmaBank;
     bytes_last -= blksize;
@@ -275,7 +275,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start(&htim4);
-  HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
 
   FATFS FatFs;
   FRESULT res;
@@ -587,6 +586,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* hdac)
+{
+	flg_dma_done = 1;
+}
 
 /* USER CODE END 4 */
 
