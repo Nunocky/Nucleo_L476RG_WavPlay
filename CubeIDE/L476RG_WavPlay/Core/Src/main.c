@@ -586,7 +586,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-__weak void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* hdac)
+void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* hdac)
 {
 	flg_dma_done = 1;
 }
